@@ -1,0 +1,6 @@
+import requests
+a = requests.get('http://news.baidu.com/')
+import re
+b = a.text
+result = re.findall('<a\shref="(.*?)"',b)
+print(result)
