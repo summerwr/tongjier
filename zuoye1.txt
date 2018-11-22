@@ -1,0 +1,112 @@
+wurong@ubuntu:~$ sudo mysql -u root -p
+[sudo] password for wurong: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 5
+Server version: 5.7.24-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| hello              |
+| hello_mysql        |
+| mysql              |
+| performance_schema |
+| shopping           |
+| sys                |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> use shopping;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create table shop_cart(
+    -> favorite varchar(20),
+    -> remind int not null,
+    -> desire varchar(50) not null);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc shop_cart;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| favorite | varchar(20) | YES  |     | NULL    |       |
+| remind   | int(11)     | NO   |     | NULL    |       |
+| desire   | varchar(50) | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from shop_cart;
+Empty set (0.03 sec)
+
+mysql> insert into shop_cart(favorite,remind,desire) values 
+    -> ("clothes",50,"mianfu"),
+    -> ("food",20,"cady"),
+    -> ("book",50,"who killed her");
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from shop_cart;                            +----------+--------+----------------+
+| favorite | remind | desire         |
++----------+--------+----------------+
+| clothes  |     50 | mianfu         |
+| food     |     20 | cady           |
+| book     |     50 | who killed her |
++----------+--------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> insert into shop_cart(favorite,remind,desire) values 
+    -> ("car",10,"falali");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from shop_cart;                            +----------+--------+----------------+
+| favorite | remind | desire         |
++----------+--------+----------------+
+| clothes  |     50 | mianfu         |
+| food     |     20 | cady           |
+| book     |     50 | who killed her |
+| car      |     10 | falali         |
++----------+--------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> delete from shop_cart where favorite="cady";
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from shop_cart;                            +----------+--------+----------------+
+| favorite | remind | desire         |
++----------+--------+----------------+
+| clothes  |     50 | mianfu         |
+| food     |     20 | cady           |
+| book     |     50 | who killed her |
+| car      |     10 | falali         |
++----------+--------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> delete from shop_cart where favorite="car";
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from shop_cart;
++----------+--------+----------------+
+| favorite | remind | desire         |
++----------+--------+----------------+
+| clothes  |     50 | mianfu         |
+| food     |     20 | cady           |
+| book     |     50 | who killed her |
++----------+--------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> exit
+Bye
+
