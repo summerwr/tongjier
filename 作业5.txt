@@ -1,0 +1,37 @@
+mysql> create table yonghu(id int auto_increment primary key,name varchar(30),loginmethod set('phone','pc','ipad'),logindata datetime);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into yonghu(name,loginmethod,logindata) values ("a","pc","2018-10-10 00:00:01");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into yonghu(name,loginmethod,logindata) values ("a","pc","2018-11-20 00:00:01");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into yonghu(name,loginmethod,logindata) values ("a","pc","2018-11-10 00:00:01");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from yonghu;
++----+------+-------------+---------------------+
+| id | name | loginmethod | logindata           |
++----+------+-------------+---------------------+
+|  1 | a    | pc          | 2018-10-10 00:00:01 |
+|  2 | a    | pc          | 2018-11-20 00:00:01 |
+|  3 | a    | pc          | 2018-11-10 00:00:01 |
++----+------+-------------+---------------------+
+3 rows in set (0.00 sec)
+
+mysql> select case
+    -> when abs(datediff(logindata,now()))>30 then "qusiba"
+    -> when abs(datediff(logindata,now()))>9 then "nihuibuhuilai"
+    -> when abs(datediff(logindata,now()))>7 then "come on"
+    -> end from yonghu;
+
+ +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| case when abs(datediff(logindata,now()))>30 then "qusiba" when abs(datediff(logindata,now()))>9 then "nihuibuhuilai" when abs(datediff(logindata,now()))>7 then "come on" end |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| qusiba                                                                                                                                                                        |
+| NULL                                                                                                                                                                          |
+| nihuibuhuilai                                                                                                                                                                 |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+3 rows in set (0.03 sec)
+
